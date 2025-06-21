@@ -36,30 +36,8 @@
         </tbody>
       </table>
       <div class="event-input">
-        <select id="start-time">
-          <option value="8am">8am</option>
-          <option value="9am">9am</option>
-          <option value="10am">10am</option>
-          <option value="11am">11am</option>
-          <option value="12pm">12pm</option>
-          <option value="1pm">1pm</option>
-          <option value="2pm">2pm</option>
-          <option value="3pm">3pm</option>
-          <option value="4pm">4pm</option>
-          <option value="5pm">5pm</option>
-        </select>
-        <select id="end-time">
-          <option value="8am">8am</option>
-          <option value="9am">9am</option>
-          <option value="10am">10am</option>
-          <option value="11am">11am</option>
-          <option value="12pm">12pm</option>
-          <option value="1pm">1pm</option>
-          <option value="2pm">2pm</option>
-          <option value="3pm">3pm</option>
-          <option value="4pm">4pm</option>
-          <option value="5pm">5pm</option>
-        </select>
+        <select id="start-time"></select>
+        <select id="end-time"></select>
         <input type="text" id="event-text" placeholder="Event description">
         <select id="day-select">
           <option value="1">Monday</option>
@@ -71,6 +49,7 @@
           <option value="7">Sunday</option>
         </select>
         <button onclick="addSchedule()">Add</button>
+        <div id="error-message" style="color: red; margin-bottom: 0.5rem;"></div>
       </div>
     </div>
   </div>

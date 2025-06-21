@@ -1,4 +1,44 @@
-// To-Do List
+const hours = ["8am", "9am", "10am", "11am", "12pm", "1pm", "2pm", "3pm", "4pm", "5pm"];
+
+function buildScheduleTable() {
+    const body = document.getElementById("schedule-table-body");
+    const schedule = JSON.parse(localStorage.getItem("schedule") || "{}");
+    body.innerHTML = "";
+
+    hours.forEach(time => {
+    const tr = document.createElement("tr");
+    const timeCell = document.createElement("td");
+    timeCell.textContent = time;
+    tr.appendChild(timeCell);
+
+    for (let d = 1; d <= 7; d++) {
+        const td = document.createElement("td");
+        const key = `${time}-${d}`;
+        if (schedule[key]) {
+        td.textContent = schedule[key];
+        }
+        tr.appendChild(td);
+    }
+
+    body.appendChild(tr);
+    });
+}
+
+function addSchedule() {
+    const time = document.getElementById("time-slot").value.trim();
+    const text = document.getElementById("event-text").value.trim();
+    const day = document.getElementById("day-select").value;
+    if (!time || !text) return;
+
+    const key = `${time}-${day}`;
+    const schedule = JSON.parse(localStorage.getItem("schedule") || "{}");
+    schedule[key] = text;
+    localStorage.setItem("schedule", JSON.stringify(schedule));
+    buildScheduleTable();
+    document.getElementById("time-slot").value = "";
+    document.getElementById("event-text").value = "";
+}
+
 function loadTodos() {
     const todos = JSON.parse(localStorage.getItem("todos") || "[]");
     const list = document.getElementById("todo-list");
@@ -28,36 +68,6 @@ function removeTodo(index) {
     loadTodos();
 }
 
-// Schedule
-function loadSchedule() {
-    const events = JSON.parse(localStorage.getItem("schedule") || "[]");
-    const list = document.getElementById("schedule-list");
-    list.innerHTML = "";
-    events.forEach((item, index) => {
-    const li = document.createElement("li");
-    li.innerHTML = `${item} <button onclick="removeSchedule(${index})">❌</button>`;
-    list.appendChild(li);
-    });
-}
-
-function addSchedule() {
-    const input = document.getElementById("schedule-input");
-    const events = JSON.parse(localStorage.getItem("schedule") || "[]");
-    if (input.value.trim()) {
-    events.push(input.value.trim());
-    localStorage.setItem("schedule", JSON.stringify(events));
-    input.value = "";
-    loadSchedule();
-    }
-}
-
-function removeSchedule(index) {
-    const events = JSON.parse(localStorage.getItem("schedule") || "[]");
-    events.splice(index, 1);
-    localStorage.setItem("schedule", JSON.stringify(events));
-    loadSchedule();
-}
-
 // Initial load
 loadTodos();
-loadSchedule();
+buildScheduleTable();

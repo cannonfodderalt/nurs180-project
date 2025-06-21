@@ -7,19 +7,48 @@
   <title>Schedule & To-Do List</title>
 </head>
 <body>
-  <h1>Schedule & To-Do List</h1>
+  <h1>Weekly Schedule & To-Do List</h1>
   <div class="container">
-    <div class="panel">
+    <div class="todo-panel">
       <h2>To-Do List</h2>
       <input type="text" id="todo-input" placeholder="Add a task...">
       <button onclick="addTodo()">Add</button>
       <ul id="todo-list"></ul>
     </div>
-    <div class="panel">
-      <h2>Schedule</h2>
-      <input type="text" id="schedule-input" placeholder="Add event (e.g. 2pm Meeting)">
-      <button onclick="addSchedule()">Add</button>
-      <ul id="schedule-list"></ul>
+
+    <div class="schedule-panel">
+      <h2>Weekly Schedule</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>Time</th>
+            <th>Monday</th>
+            <th>Tuesday</th>
+            <th>Wednesday</th>
+            <th>Thursday</th>
+            <th>Friday</th>
+            <th>Saturday</th>
+            <th>Sunday</th>
+          </tr>
+        </thead>
+        <tbody id="schedule-table-body">
+          <!-- Rows will be inserted here by JS -->
+        </tbody>
+      </table>
+      <div class="event-input">
+        <input type="text" id="time-slot" placeholder="Time (e.g., 9am)">
+        <input type="text" id="event-text" placeholder="Event description">
+        <select id="day-select">
+          <option value="1">Monday</option>
+          <option value="2">Tuesday</option>
+          <option value="3">Wednesday</option>
+          <option value="4">Thursday</option>
+          <option value="5">Friday</option>
+          <option value="6">Saturday</option>
+          <option value="7">Sunday</option>
+        </select>
+        <button onclick="addSchedule()">Add</button>
+      </div>
     </div>
   </div>
   <script src="js/script.js"></script>

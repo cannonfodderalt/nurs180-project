@@ -25,17 +25,24 @@ function buildScheduleTable() {
 }
 
 function addSchedule() {
-    const time = document.getElementById("time-slot").value.trim();
+    const startTime = document.getElementById("start-time").value;
+    const endTime = document.getElementById("end-time").value;
     const text = document.getElementById("event-text").value.trim();
     const day = document.getElementById("day-select").value;
-    if (!time || !text) return;
+    if (!startTime || !endTime || !text) return;
 
-    const key = `${time}-${day}`;
+    const startIndex = hours.indexOf(startTime);
+    const endIndex = hours.indexOf(endTime);
+    if (startIndex === -1 || endIndex === -1 || startIndex > endIndex) return;
+
     const schedule = JSON.parse(localStorage.getItem("schedule") || "{}");
+    for (let i = startIndex; i <= endIndex; i++) {
+    const key = `${hours[i]}-${day}`;
     schedule[key] = text;
+    }
     localStorage.setItem("schedule", JSON.stringify(schedule));
     buildScheduleTable();
-    document.getElementById("time-slot").value = "";
+
     document.getElementById("event-text").value = "";
 }
 

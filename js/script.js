@@ -1,9 +1,9 @@
 const hours = [
-"8am", "9am", "10am", "11am", "12pm",
-"1pm", "2pm", "3pm", "4pm", "5pm"
+    "8am", "9am", "10am", "11am", "12pm",
+    "1pm", "2pm", "3pm", "4pm", "5pm",
+    "6pm", "7pm"
 ];
 
-// Fill time dropdowns
 const startSelect = document.getElementById("start-time");
 const endSelect = document.getElementById("end-time");
 hours.forEach(h => {
@@ -26,19 +26,18 @@ function buildScheduleTable() {
     const events = JSON.parse(localStorage.getItem("scheduleBlocks") || "[]");
     body.innerHTML = "";
 
-    // Create a blank matrix: [hour][day]
     const rowMap = Array.from({ length: hours.length }, () =>
         Array(8).fill(null)
     );
 
-    // Fill in blocks
     events.forEach((event, idx) => {
         const startIdx = hours.indexOf(event.start);
         const endIdx = hours.indexOf(event.end);
         rowMap[startIdx][event.day] = {
         text: event.text,
         span: endIdx - startIdx + 1,
-        index: idx
+        index: idx,
+        color: event.color || "#d0eaff"
         };
         for (let i = startIdx + 1; i <= endIdx; i++) {
         rowMap[i][event.day] = "SKIP";
@@ -59,13 +58,15 @@ function buildScheduleTable() {
         if (cellData) {
             td.rowSpan = cellData.span;
             td.textContent = cellData.text;
-            td.style.background = "#d0eaff";
+            td.style.background = cellData.color;
             td.style.cursor = "pointer";
             td.onclick = () => {
-            const events = JSON.parse(localStorage.getItem("scheduleBlocks") || "[]");
-            events.splice(cellData.index, 1);
-            localStorage.setItem("scheduleBlocks", JSON.stringify(events));
-            buildScheduleTable();
+            if (confirm("Delete this event?")) {
+                const events = JSON.parse(localStorage.getItem("scheduleBlocks") || "[]");
+                events.splice(cellData.index, 1);
+                localStorage.setItem("scheduleBlocks", JSON.stringify(events));
+                buildScheduleTable();
+            }
             };
         }
         tr.appendChild(td);
@@ -79,6 +80,7 @@ function addSchedule() {
     const start = document.getElementById("start-time").value;
     const end = document.getElementById("end-time").value;
     const text = document.getElementById("event-text").value.trim();
+    const color = document.getElementById("event-color").value;
     const day = parseInt(document.getElementById("day-select").value);
 
     const startIdx = hours.indexOf(start);
@@ -89,7 +91,16 @@ function addSchedule() {
     if (startIdx > endIdx) return showError("Start time must be before end time.");
 
     const events = JSON.parse(localStorage.getItem("scheduleBlocks") || "[]");
-    events.push({ day, start, end, text });
+    const overlaps = events.some(event => {
+        if (event.day !== day) return false;
+        const s1 = hours.indexOf(event.start);
+        const e1 = hours.indexOf(event.end);
+        return Math.max(startIdx, s1) <= Math.min(endIdx, e1);
+    });
+
+    if (overlaps) return showError("This time slot overlaps with an existing event.");
+
+    events.push({ day, start, end, text, color });
     localStorage.setItem("scheduleBlocks", JSON.stringify(events));
 
     document.getElementById("event-text").value = "";
@@ -103,16 +114,21 @@ function loadTodos() {
     list.innerHTML = "";
     todos.forEach((item, index) => {
         const li = document.createElement("li");
-        li.innerHTML = `${item} <button onclick="removeTodo(${index})">❌</button>`;
+        li.style.background = item.color || "#eee";
+        li.style.padding = "0.25rem";
+        li.style.borderRadius = "5px";
+        li.style.marginBottom = "0.25rem";
+        li.innerHTML = `${item.text} <button onclick="removeTodo(${index})">❌</button>`;
         list.appendChild(li);
     });
-}
+    }
 
-function addTodo() {
+    function addTodo() {
     const input = document.getElementById("todo-input");
     const todos = JSON.parse(localStorage.getItem("todos") || "[]");
     if (input.value.trim()) {
-        todos.push(input.value.trim());
+        const color = prompt("Pick a color for this task (or leave blank):", "#fceabb") || "#fceabb";
+        todos.push({ text: input.value.trim(), color });
         localStorage.setItem("todos", JSON.stringify(todos));
         input.value = "";
         loadTodos();

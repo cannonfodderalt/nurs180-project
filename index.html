@@ -11,52 +11,75 @@
 
 <body>
   <h1>Weekly Schedule & To-Do List</h1>
-  <div class="container">
-    <div class="todo-panel">
-      <h2>To-Do List</h2>
-      <input type="text" id="todo-input" placeholder="Add a task...">
-      <a class="waves-effect waves-light btn-small" onclick="addTodo()">Add</a>
-      <ul id="todo-list"></ul>
-    </div>
 
-    <div class="schedule-panel">
-      <h2>Weekly Schedule</h2>
-      <table>
-        <thead>
-          <tr>
-            <th>Time</th>
-            <th>Monday</th>
-            <th>Tuesday</th>
-            <th>Wednesday</th>
-            <th>Thursday</th>
-            <th>Friday</th>
-            <th>Saturday</th>
-            <th>Sunday</th>
-          </tr>
-        </thead>
-        <tbody id="schedule-table-body">
-        </tbody>
-      </table>
-      <div class="event-input">
-        <div class="input-field col s12">
-          <select id="start-time"></select>
+  <div class="container">
+    <div class="row">
+
+      <div class="col s12 m4">
+        <div class="card-panel todo-panel">
+          <h5>To-Do List</h5>
+          <div class="input-field">
+            <input type="text" id="todo-input" placeholder="Add a task...">
+          </div>
+          <a class="waves-effect waves-light btn-small" onclick="addTodo()">Add</a>
+          <ul id="todo-list" class="collection"></ul>
         </div>
-        <div class="input-field col s12">
-          <select id="end-time"></select>
+      </div>
+
+      <div class="col s12 m8">
+        <div class="card-panel schedule-panel">
+          <h5>Weekly Schedule</h5>
+          <table class="highlight">
+            <thead>
+              <tr>
+                <th>Time</th>
+                <th>Mon</th>
+                <th>Tue</th>
+                <th>Wed</th>
+                <th>Thu</th>
+                <th>Fri</th>
+                <th>Sat</th>
+                <th>Sun</th>
+              </tr>
+            </thead>
+            <tbody id="schedule-table-body"></tbody>
+          </table>
+          <div class="event-input row">
+            <div class="input-field col s6 m4">
+              <select id="start-time"></select>
+              <label for="start-time">Start Time</label>
+            </div>
+            <div class="input-field col s6 m4">
+              <select id="end-time"></select>
+              <label for="end-time">End Time</label>
+            </div>
+            <div class="input-field col s12 m8">
+              <input type="text" id="event-text" placeholder="Event description">
+            </div>
+            <div class="input-field col s6 m4">
+              <input type="color" id="event-color" value="#d0eaff" style="height: 2.5rem;">
+              <label for="event-color" style="top: -12px;">Color</label>
+            </div>
+            <div class="input-field col s6 m4">
+              <select id="day-select">
+                <option value="1">Monday</option>
+                <option value="2">Tuesday</option>
+                <option value="3">Wednesday</option>
+                <option value="4">Thursday</option>
+                <option value="5">Friday</option>
+                <option value="6">Saturday</option>
+                <option value="7">Sunday</option>
+              </select>
+              <label for="day-select">Day</label>
+            </div>
+            <div class="input-field col s12 m4">
+              <a class="waves-effect waves-light btn-small" onclick="addSchedule()">Add</a>
+            </div>
+            <div class="col s12">
+              <div id="error-message" style="color: red;"></div>
+            </div>
+          </div>
         </div>
-        <input type="text" id="event-text" placeholder="Event description">
-        <input type="color" id="event-color" value="#d0eaff">
-        <select id="day-select">
-          <option value="1">Monday</option>
-          <option value="2">Tuesday</option>
-          <option value="3">Wednesday</option>
-          <option value="4">Thursday</option>
-          <option value="5">Friday</option>
-          <option value="6">Saturday</option>
-          <option value="7">Sunday</option>
-        </select>
-        <a class="waves-effect waves-light btn-small" onclick="addSchedule()">Add</a>
-        <div id="error-message" style="color: red; margin-bottom: 0.5rem;"></div>
       </div>
     </div>
   </div>
@@ -71,6 +94,12 @@
   </footer>
           
   <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      var elems = document.querySelectorAll('select');
+      var instances = M.FormSelect.init(elems, options);
+    });
+  </script>
   <script src="js/script.js"></script>
 </body>
 

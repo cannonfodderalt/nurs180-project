@@ -183,6 +183,9 @@ function addTodo() {
     localStorage.setItem("todos", JSON.stringify(todos));
     input.value = "";
     loadTodos();
+    clearErrorTodo();
+  } else {
+    return showError("Please enter an event description.");
   }
 }
 
@@ -200,6 +203,14 @@ function removeTodo(id) {
   const updated = todos.filter(todo => todo.id !== id);
   localStorage.setItem("todos", JSON.stringify(updated));
   loadTodos();
+}
+
+function showErrorTodo(message) {
+    document.getElementById("error-message-t").textContent = message;
+}
+
+function clearErrorTodo() {
+    document.getElementById("error-message-t").textContent = "";
 }
 
 

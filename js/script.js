@@ -34,13 +34,13 @@ function buildScheduleTable() {
         const startIdx = hours.indexOf(event.start);
         const endIdx = hours.indexOf(event.end);
         rowMap[startIdx][event.day] = {
-        text: event.text,
-        span: endIdx - startIdx + 1,
-        index: idx,
-        color: event.color || "#d0eaff"
+            text: event.text,
+            span: endIdx - startIdx + 1,
+            index: idx,
+            color: event.color || "#d0eaff"
         };
         for (let i = startIdx + 1; i <= endIdx; i++) {
-        rowMap[i][event.day] = "SKIP";
+            rowMap[i][event.day] = "SKIP";
         }
     });
 
@@ -92,13 +92,15 @@ function addSchedule() {
 
     const events = JSON.parse(localStorage.getItem("scheduleBlocks") || "[]");
     const overlaps = events.some(event => {
-        if (event.day !== day) return false;
+        if (event.day !== day) 
+            return false;
         const s1 = hours.indexOf(event.start);
         const e1 = hours.indexOf(event.end);
         return Math.max(startIdx, s1) <= Math.min(endIdx, e1);
     });
 
-    if (overlaps) return showError("This time slot overlaps with an existing event.");
+    if (overlaps) 
+        return showError("This time slot overlaps with an existing event.");
 
     events.push({ day, start, end, text, color });
     localStorage.setItem("scheduleBlocks", JSON.stringify(events));
@@ -127,7 +129,7 @@ function loadTodos() {
     const input = document.getElementById("todo-input");
     const todos = JSON.parse(localStorage.getItem("todos") || "[]");
     if (input.value.trim()) {
-        const color = prompt("Pick a color for this task (or leave blank):", "#fceabb") || "#fceabb";
+        const color = "#fceabb";
         todos.push({ text: input.value.trim(), color });
         localStorage.setItem("todos", JSON.stringify(todos));
         input.value = "";

@@ -16,7 +16,7 @@
     <div class="row">
       <!-- To-Do Panel -->
       <div class="col s12 m4">
-        <div class="card-panel todo-panel">
+        <div class="todo-panel">
           <h5>To-Do List</h5>
           <div class="input-field">
             <input type="text" id="todo-input" placeholder="Add a task...">
@@ -28,7 +28,7 @@
 
       <!-- Schedule Panel -->
       <div class="col s12 m8">
-        <div class="card-panel schedule-panel">
+        <div class="schedule-panel">
           <h5>Weekly Schedule</h5>
           <table class="highlight">
             <thead>
@@ -89,23 +89,23 @@
   <!-- Footer -->
   <footer class="page-footer grey darken-3">
     <div class="container">
-      <div class="row" style="margin-bottom: 0;">
+      <div class="row">
         <div class="col s12 m6">
           <p class="white-text">By Nathan Liou</p>
         </div>
         <div class="col s12 m6 right-align">
-          <a class="grey-text text-lighten-4" href="https://github.com/cannonfodderalt/nurs180-project">GitHub
-            Project</a>
+          <a class="grey-text text-lighten-4" href="https://github.com/cannonfodderalt/nurs180-project">
+            GitHub Project
+          </a>
         </div>
       </div>
     </div>
   </footer>
-
   <!-- Scripts -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
   <script>
     document.addEventListener('DOMContentLoaded', function () {
-      const selects = document.querySelectorAll('select');
+      var selects = document.querySelectorAll('select');
       M.FormSelect.init(selects);
     });
   </script>

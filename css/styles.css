@@ -2,17 +2,11 @@ body {
   font-family: sans-serif;
   background: #f8f8f8;
   margin: 0;
-  padding: 1rem;
 }
 
 h1 {
   text-align: center;
-}
-
-.container {
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 1rem;
+  margin-top: 1rem;
 }
 
 .todo-panel,
@@ -21,6 +15,7 @@ h1 {
   padding: 1rem;
   border-radius: 10px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  margin-bottom: 2rem;
 }
 
 .input-field input[type="text"],
@@ -55,4 +50,13 @@ th {
 
 .event-input .btn-small {
   margin-top: 1rem;
+  margin-bottom: 1rem;
+}
+
+footer.page-footer {
+  padding-top: 0;
+}
+
+footer .row {
+  margin-bottom: 0;
 }

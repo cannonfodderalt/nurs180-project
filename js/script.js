@@ -111,37 +111,80 @@ function addSchedule() {
 }
 
 function loadTodos() {
-    const todos = JSON.parse(localStorage.getItem("todos") || "[]");
-    const list = document.getElementById("todo-list");
-    list.innerHTML = "";
-    todos.forEach((item, index) => {
-        const li = document.createElement("li");
-        li.style.background = item.color || "#eee";
-        li.style.padding = "0.25rem";
-        li.style.borderRadius = "5px";
-        li.style.marginBottom = "0.25rem";
-        li.innerHTML = `${item.text} <button onclick="removeTodo(${index})">❌</button>`;
-        list.appendChild(li);
-    });
+  const todos = JSON.parse(localStorage.getItem("todos") || "[]");
+  const list = document.getElementById("todo-list");
+  list.innerHTML = "";
+
+  todos.forEach((item, index) => {
+    const li = document.createElement("li");
+    li.style.background = item.color || "#eee";
+    li.style.padding = "0.5rem";
+    li.style.borderRadius = "5px";
+    li.style.marginBottom = "0.5rem";
+    li.style.display = "flex";
+    li.style.alignItems = "center";
+    li.style.justifyContent = "space-between";
+
+    const label = document.createElement("label");
+    label.style.flex = "1";
+    label.style.display = "flex";
+    label.style.alignItems = "center";
+    label.style.cursor = "pointer";
+
+    const checkbox = document.createElement("input");
+    checkbox.type = "checkbox";
+    checkbox.checked = item.completed || false;
+    checkbox.style.marginRight = "0.5rem";
+    checkbox.onchange = () => toggleTodo(index);
+
+    const span = document.createElement("span");
+    span.textContent = item.text;
+    if (item.completed) {
+      span.style.textDecoration = "line-through";
+      span.style.opacity = "0.6";
     }
 
-    function addTodo() {
-    const input = document.getElementById("todo-input");
-    const todos = JSON.parse(localStorage.getItem("todos") || "[]");
-    if (input.value.trim()) {
-        const color = "#fceabb";
-        todos.push({ text: input.value.trim(), color });
-        localStorage.setItem("todos", JSON.stringify(todos));
-        input.value = "";
-        loadTodos();
-    }
+    label.appendChild(checkbox);
+    label.appendChild(span);
+
+    const removeBtn = document.createElement("button");
+    removeBtn.textContent = "❌";
+    removeBtn.onclick = () => removeTodo(index);
+    removeBtn.style.border = "none";
+    removeBtn.style.background = "transparent";
+    removeBtn.style.cursor = "pointer";
+    removeBtn.style.fontSize = "1rem";
+
+    li.appendChild(label);
+    li.appendChild(removeBtn);
+    list.appendChild(li);
+  });
+}
+
+function addTodo() {
+  const input = document.getElementById("todo-input");
+  const todos = JSON.parse(localStorage.getItem("todos") || "[]");
+  if (input.value.trim()) {
+    const color = "#fceabb";
+    todos.push({ text: input.value.trim(), color, completed: false });
+    localStorage.setItem("todos", JSON.stringify(todos));
+    input.value = "";
+    loadTodos();
+  }
+}
+
+function toggleTodo(index) {
+  const todos = JSON.parse(localStorage.getItem("todos") || "[]");
+  todos[index].completed = !todos[index].completed;
+  localStorage.setItem("todos", JSON.stringify(todos));
+  loadTodos();
 }
 
 function removeTodo(index) {
-    const todos = JSON.parse(localStorage.getItem("todos") || "[]");
-    todos.splice(index, 1);
-    localStorage.setItem("todos", JSON.stringify(todos));
-    loadTodos();
+  const todos = JSON.parse(localStorage.getItem("todos") || "[]");
+  todos.splice(index, 1);
+  localStorage.setItem("todos", JSON.stringify(todos));
+  loadTodos();
 }
 
 // Initial load

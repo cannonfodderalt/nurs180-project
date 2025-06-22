@@ -1,20 +1,9 @@
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
-  <link rel="stylesheet" href="css/styles.css">
-  <title>Schedule & To-Do List</title>
-</head>
-
 <body>
-  <h1>Weekly Schedule & To-Do List</h1>
+  <h1 class="center-align">Weekly Schedule & To-Do List</h1>
 
   <div class="container">
     <div class="row">
-
+      <!-- To-Do Panel -->
       <div class="col s12 m4">
         <div class="card-panel todo-panel">
           <h5>To-Do List</h5>
@@ -26,6 +15,7 @@
         </div>
       </div>
 
+      <!-- Schedule Panel -->
       <div class="col s12 m8">
         <div class="card-panel schedule-panel">
           <h5>Weekly Schedule</h5>
@@ -44,6 +34,7 @@
             </thead>
             <tbody id="schedule-table-body"></tbody>
           </table>
+
           <div class="event-input row">
             <div class="input-field col s6 m4">
               <select id="start-time"></select>
@@ -84,23 +75,27 @@
     </div>
   </div>
 
-  <footer class="page-footer">
-    <div class="footer-copyright">
-      <div class="container">
-      By Nathan Liou
-      <a class="grey-text text-lighten-4 right" href="https://github.com/cannonfodderalt/nurs180-project">Link to Github</a>
+  <!-- Footer -->
+  <footer class="page-footer grey darken-3">
+    <div class="container">
+      <div class="row" style="margin-bottom: 0;">
+        <div class="col s12 m6">
+          <p class="white-text">By Nathan Liou</p>
+        </div>
+        <div class="col s12 m6 right-align">
+          <a class="grey-text text-lighten-4" href="https://github.com/cannonfodderalt/nurs180-project">GitHub Project</a>
+        </div>
       </div>
     </div>
   </footer>
-          
+
+  <!-- Scripts -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
   <script>
-    document.addEventListener('DOMContentLoaded', function() {
-      var elems = document.querySelectorAll('select');
-      var instances = M.FormSelect.init(elems, options);
+    document.addEventListener('DOMContentLoaded', function () {
+      const selects = document.querySelectorAll('select');
+      M.FormSelect.init(selects);
     });
   </script>
   <script src="js/script.js"></script>
 </body>
-
-</html>

@@ -111,11 +111,18 @@ function addSchedule() {
 }
 
 function loadTodos() {
-  const todos = JSON.parse(localStorage.getItem("todos") || "[]");
+  let todos = JSON.parse(localStorage.getItem("todos") || "[]");
 
-  todos.sort((a, b) => {
-    return (a.completed === b.completed) ? 0 : a.completed ? 1 : -1;
+  // Ensure all tasks have unique IDs
+  todos = todos.map(todo => {
+    if (!todo.id) {
+      return { ...todo, id: Date.now() + Math.random() }; // Assign unique ID
+    }
+    return todo;
   });
+
+  // Save back any updated items
+  localStorage.setItem("todos", JSON.stringify(todos));
 
   const list = document.getElementById("todo-list");
   list.innerHTML = "";

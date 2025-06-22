@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,13 +8,14 @@
   <link rel="stylesheet" href="css/styles.css">
   <title>Schedule & To-Do List</title>
 </head>
+
 <body>
   <h1>Weekly Schedule & To-Do List</h1>
   <div class="container">
     <div class="todo-panel">
       <h2>To-Do List</h2>
       <input type="text" id="todo-input" placeholder="Add a task...">
-      <button onclick="addTodo()">Add</button>
+      <a class="waves-effect waves-light btn-small" onclick="addTodo()">Add</a>
       <ul id="todo-list"></ul>
     </div>
 
@@ -36,8 +38,12 @@
         </tbody>
       </table>
       <div class="event-input">
-        <select id="start-time"></select>
-        <select id="end-time"></select>
+        <div class="input-field col s12">
+          <select id="start-time"></select>
+        </div>
+        <div class="input-field col s12">
+          <select id="end-time"></select>
+        </div>
         <input type="text" id="event-text" placeholder="Event description">
         <input type="color" id="event-color" value="#d0eaff">
         <select id="day-select">
@@ -49,12 +55,23 @@
           <option value="6">Saturday</option>
           <option value="7">Sunday</option>
         </select>
-        <button onclick="addSchedule()">Add</button>
+        <a class="waves-effect waves-light btn-small" onclick="addSchedule()">Add</a>
         <div id="error-message" style="color: red; margin-bottom: 0.5rem;"></div>
       </div>
     </div>
   </div>
+
+  <footer class="page-footer">
+    <div class="footer-copyright">
+      <div class="container">
+      By Nathan Liou
+      <a class="grey-text text-lighten-4 right" href="https://github.com/cannonfodderalt/nurs180-project">Link to Github</a>
+      </div>
+    </div>
+  </footer>
+          
   <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
   <script src="js/script.js"></script>
 </body>
+
 </html>

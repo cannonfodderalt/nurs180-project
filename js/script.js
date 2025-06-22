@@ -112,6 +112,11 @@ function addSchedule() {
 
 function loadTodos() {
   const todos = JSON.parse(localStorage.getItem("todos") || "[]");
+
+  todos.sort((a, b) => {
+    return (a.completed === b.completed) ? 0 : a.completed ? 1 : -1;
+  });
+
   const list = document.getElementById("todo-list");
   list.innerHTML = "";
 

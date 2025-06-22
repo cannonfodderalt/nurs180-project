@@ -55,13 +55,6 @@
               <select id="end-time"></select>
               <label for="end-time">End Time</label>
             </div>
-            <div class="input-field col s12 m8">
-              <input type="text" id="event-text" placeholder="Event description">
-            </div>
-            <div class="input-field col s6 m4">
-              <label for="event-color" style="display: block; margin-bottom: 0.3rem;">Color</label>
-              <input type="color" id="event-color" value="#d0eaff" style="height: 2.5rem; border: none;">
-            </div>
             <div class="input-field col s6 m4">
               <select id="day-select">
                 <option value="1">Monday</option>
@@ -73,6 +66,13 @@
                 <option value="7">Sunday</option>
               </select>
               <label for="day-select">Day</label>
+            </div>
+            <div class="input-field col s12 m8">
+              <input type="text" id="event-text" placeholder="Event description">
+            </div>
+            <div class="input-field col s6 m4">
+              <label for="event-color" style="display: block; margin-bottom: 0.3rem;">Color</label>
+              <input type="color" id="event-color" value="#d0eaff" style="height: 2.5rem; border: none;">
             </div>
             <div class="input-field col s12 m4">
               <a class="waves-effect waves-light btn-small" onclick="addSchedule()">Add</a>
@@ -89,7 +89,6 @@
   <!-- Footer -->
   <footer class="page-footer grey darken-3">
     <div class="container">
-      <div class="row">
         <div class="col s12 m6">
           <p class="white-text">By Nathan Liou</p>
         </div>
@@ -98,7 +97,6 @@
             GitHub Project
           </a>
         </div>
-      </div>
     </div>
   </footer>
   <!-- Scripts -->

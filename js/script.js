@@ -140,7 +140,7 @@ function loadTodos() {
     checkbox.type = "checkbox";
     checkbox.checked = item.completed || false;
     checkbox.style.marginRight = "0.5rem";
-    checkbox.onchange = () => toggleTodo(index);
+    checkbox.onchange = () => toggleTodo(item.id);
 
     const span = document.createElement("span");
     span.textContent = item.text;
@@ -154,7 +154,7 @@ function loadTodos() {
 
     const removeBtn = document.createElement("button");
     removeBtn.textContent = "❌";
-    removeBtn.onclick = () => removeTodo(index);
+    removeBtn.onclick = () => removeTodo(item.id);
     removeBtn.style.border = "none";
     removeBtn.style.background = "transparent";
     removeBtn.style.cursor = "pointer";
@@ -171,26 +171,30 @@ function addTodo() {
   const todos = JSON.parse(localStorage.getItem("todos") || "[]");
   if (input.value.trim()) {
     const color = "#fceabb";
-    todos.push({ text: input.value.trim(), color, completed: false });
+    const id = Date.now();
+    todos.push({ id, text: input.value.trim(), color, completed: false });
     localStorage.setItem("todos", JSON.stringify(todos));
     input.value = "";
     loadTodos();
   }
 }
 
-function toggleTodo(index) {
+function toggleTodo(id) {
   const todos = JSON.parse(localStorage.getItem("todos") || "[]");
-  todos[index].completed = !todos[index].completed;
-  localStorage.setItem("todos", JSON.stringify(todos));
+  const updated = todos.map(todo =>
+    todo.id === id ? { ...todo, completed: !todo.completed } : todo
+  );
+  localStorage.setItem("todos", JSON.stringify(updated));
   loadTodos();
 }
 
-function removeTodo(index) {
+function removeTodo(id) {
   const todos = JSON.parse(localStorage.getItem("todos") || "[]");
-  todos.splice(index, 1);
-  localStorage.setItem("todos", JSON.stringify(todos));
+  const updated = todos.filter(todo => todo.id !== id);
+  localStorage.setItem("todos", JSON.stringify(updated));
   loadTodos();
 }
+
 
 // Initial load
 loadTodos();

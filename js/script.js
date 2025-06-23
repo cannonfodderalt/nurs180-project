@@ -1,7 +1,7 @@
 const hours = [
   "8am", "9am", "10am", "11am", "12pm",
   "1pm", "2pm", "3pm", "4pm", "5pm",
-  "6pm", "7pm"
+  "6pm", "7pm", "8pm"
 ];
 
 const startSelect = document.getElementById("start-time");
@@ -48,7 +48,7 @@ function buildScheduleTable() {
     }
   });
 
-  for (let i = 0; i < hours.length; i++) {
+  for (let i = 0; i < hours.length - 1; i++) {
     const tr = document.createElement("tr");
     const timeCell = document.createElement("td");
     timeCell.textContent = hours[i];
@@ -181,7 +181,7 @@ function addSchedule() {
       return false;
     const s1 = hours.indexOf(event.start);
     const e1 = hours.indexOf(event.end);
-    return Math.max(startIdx, s1) <= Math.min(endIdx, e1);
+    return Math.max(startIdx, s1) < Math.min(endIdx, e1);
   });
 
   if (overlaps)

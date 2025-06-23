@@ -60,3 +60,41 @@ footer.page-footer {
 footer .row {
   margin-bottom: 0;
 }
+
+td {
+  padding: 0.75rem;  /* make cells roomier */
+  min-width: 120px;  /* give each cell a minimum width */
+}
+
+.schedule-panel table {
+  table-layout: fixed;  /* so width behaves predictably */
+}
+
+.schedule-panel td div {
+  flex-wrap: wrap;  /* if text + buttons overflow, they wrap instead of squishing */
+}
+
+.schedule-panel {
+  overflow-x: auto;  /* allows horizontal scroll if needed */
+}
+
+table {
+  width: 100%;
+}
+
+.schedule-panel {
+  width: 100%;
+}
+
+@media (min-width: 768px) {
+  .schedule-panel {
+    width: 100%;
+    max-width: none;
+  }
+}
+
+.container-fluid {
+  width: 100%;
+  padding: 0 1rem; /* optional small padding on sides */
+  max-width: 100%;
+}

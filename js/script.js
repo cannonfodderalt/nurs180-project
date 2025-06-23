@@ -61,12 +61,23 @@ function buildScheduleTable() {
             td.style.background = cellData.color;
             td.style.cursor = "pointer";
             td.onclick = () => {
-            if (confirm("Delete this event?")) {
-                const events = JSON.parse(localStorage.getItem("scheduleBlocks") || "[]");
-                events.splice(cellData.index, 1);
-                localStorage.setItem("scheduleBlocks", JSON.stringify(events));
-                buildScheduleTable();
-            }
+                const action = prompt(`Modify event:\n1. Edit\n2. Delete\nCancel = do nothing`, "1");
+                if (action === "1") {
+                    const newText = prompt("Edit event text:", cellData.text);
+                    if (newText !== null) {
+                    const events = JSON.parse(localStorage.getItem("scheduleBlocks") || "[]");
+                    events[cellData.index].text = newText.trim() || cellData.text;
+                    localStorage.setItem("scheduleBlocks", JSON.stringify(events));
+                    buildScheduleTable();
+                    }
+                } else if (action === "2") {
+                    if (confirm("Delete this event?")) {
+                    const events = JSON.parse(localStorage.getItem("scheduleBlocks") || "[]");
+                    events.splice(cellData.index, 1);
+                    localStorage.setItem("scheduleBlocks", JSON.stringify(events));
+                    buildScheduleTable();
+                    }
+                }
             };
         }
         tr.appendChild(td);
@@ -150,6 +161,15 @@ function loadTodos() {
     checkbox.onchange = () => toggleTodo(item.id);
 
     const span = document.createElement("span");
+      span.onclick = () => {
+      const newText = prompt("Edit task:", item.text);
+      if (newText === null) return;
+      item.text = newText.trim() || item.text;
+      localStorage.setItem("todos", JSON.stringify(todos));
+      loadTodos();
+    };
+
+    span.style.cursor = "pointer";
     span.textContent = item.text;
     if (item.completed) {
       span.style.textDecoration = "line-through";

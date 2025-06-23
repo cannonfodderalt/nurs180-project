@@ -185,7 +185,7 @@ function addTodo() {
     loadTodos();
     clearErrorTodo();
   } else {
-    return showError("Please enter an event description.");
+    return showErrorTodo("Please enter a task.");
   }
 }
 

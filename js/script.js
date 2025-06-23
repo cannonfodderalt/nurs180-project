@@ -43,7 +43,7 @@ function buildScheduleTable() {
       index: idx,
       color: event.color || "#d0eaff"
     };
-    for (let i = startIdx + 1; i <= endIdx; i++) {
+    for (let i = startIdx + 1; i < endIdx; i++) {
       rowMap[i][event.day] = "SKIP";
     }
   });
